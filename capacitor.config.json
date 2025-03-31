@@ -1,0 +1,6 @@
+{
+  "appId": "com.Consulta.Precios",
+  "appName": "Consulta-Precios-v1",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}

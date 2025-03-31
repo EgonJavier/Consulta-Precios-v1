@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Precios</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <!-- Pantalla splash -->
+    <div id="splash" class="splash">
+        <img src="https://i.ibb.co/gtdqZsT/logo3.png" width="300" alt="Logo">
+    </div>
+
+    <!-- Contenedor principal de la app -->
+    <div id="app" class="container hidden">
+        <img id="Logo2" src="https://i.ibb.co/n1kY1vK/logo2.png" width="300" alt="Logo2">
+        
+        <div>
+            <input type="tel" id="barcodeInput" placeholder="Escriba el código de su producto" pattern="[0-9]*" inputmode="numeric">
+            <button id="lookupButton">Buscar Producto</button>
+        </div>
+
+     <!-- Pantalla de carga -->
+    <div class="loading hidden">
+        <img src="https://i.ibb.co/9NfpyHC/Logo-app.png" alt="Loading Logo">
+    </div>
+
+        <div id="startScanner container">
+        <img id="startScanner" src="https://i.ibb.co/HPMCzwd/botonscan.png" alt="Usar Cámara" style="cursor: pointer;">
+    </div>
+    <div id="FaldaPagina" >
+        <img id="LogoAbajo" src="https://i.ibb.co/nkZsWYb/Sin-t-tulo-1.png" width="300" alt="LogoAbajo">
+    </div>
+       
+        <!-- Contenedor para el escáner -->
+        <div id="scanner" class="scanner hidden">
+            <!-- Botón para cerrar el escáner -->
+            <button id="closeScanner" class="close-button">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Contenedor flotante del popup -->
+    <div id="productPopup" class="popup hidden">
+        <div class="popup-content">
+            <p id="popupProductName">Nombre del Producto:</p>
+            <p id="popupProductPrice">Precio</p>
+            <p id="popupProductPrice2">Precio2</p>
+            <p id="popupProductInterno">Codigo_Interno</p>
+            <p id="popupProductStock">Stock</p>
+            <p id="popupProductFecha">Fecha</p>
+            <img src="https://i.ibb.co/nkZsWYb/Sin-t-tulo-1.png" width="300" alt="popup-logo">
+        </div>
+        <div id="popupProductPrice2" class="hidden"></div>
+    </div>
+
+    <!-- Importar QuaggaJS -->
+    <script src="https://unpkg.com/quagga@0.12.1/dist/quagga.min.js"></script>
+    <!-- Importar el archivo JavaScript de la app -->
+    <script src="app.js"></script>
+</body>
+
+</html>

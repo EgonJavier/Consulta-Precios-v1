@@ -1,0 +1,300 @@
+/* Eliminar Recuadro Azul que aparece al seleccionar botones*/
+button, #startScanner {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+/* Pantalla splash */
+.splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #87ceeb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* Alta prioridad para estar por encima de todo */
+   /* animation: fadeOut 2s forwards;  Animación de desvanecimiento */
+}
+
+.splash img {
+    width: 300px;
+    animation: zoomIn 2s ease-in-out;
+}
+
+#Logo2 {
+    margin-top: 50px;
+}
+
+/* Pantalla de carga */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #87ceeb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.loading img {
+    width: 100px; /* Tamaño del logo */
+    animation: pulse 1.5s infinite;
+}
+
+
+@keyframes pulse {
+    0%, 100%{
+        transform:scale(1);
+        opacity:1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity:0.5;
+    }
+}
+
+.loading.hidden {
+    display: none;
+}
+
+#startScanner {
+    width: 130px;
+    height: auto; 
+    margin-top:50px;
+    margin-bottom:100px;
+}
+
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Contenedor de la app */
+.hidden {
+    display: none;
+}
+
+/* Adaptar la app a pantalla completa */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Roboto';
+    color: white;
+    font-size: 20px;
+    background-color: #87ceeb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    text-align: center;
+    background-color: #87ceeb;
+    padding: 20px;
+    border-radius: 0; /* Eliminado borde redondeado */
+}
+
+/* Estilos para el input de código de barras */
+input[type="tel"]{
+    padding: 20px;
+    width: 65%;
+    margin-top: 10px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Estilos para los botones */
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #32CD32;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    } 
+
+/* Ajuste en el hover */
+button:hover {
+    background-color: #d83d3d; /* Corregido color hover */
+}
+
+/* Estilos para el popup flotante */
+.popup {
+    position: fixed; /* Fijo para ocupar toda la pantalla */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(166, 215, 231, 1);
+    color: #000000; /* Letras */
+    display: flex; /* Usar flexbox para centrar */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    z-index: 9999;
+    display: none; /* Inicialmente oculto */
+    overflow-y: auto; /* Scroll si es necesario */
+    padding: 0; /* Eliminar padding para ocupar toda la pantalla */
+    border-radius: 0; /* Asegurar que no haya bordes redondeados */
+}
+
+/* Estilos para el contenido del popup */
+.popup-content {
+    text-align: center;
+    width: 90%; 
+    max-width: 800px; /* Aumentar el max-width para mayor visibilidad */
+    margin: 0 auto;
+    padding: 20px; /* Espacio interno */
+    background-color: transparent; /* Fondo transparente para mantener el fondo del popup */
+    font-size: 25px !important;
+}
+
+/* Estilo específico para el precio */
+#popupProductPrice {
+    font-size: 70px !important;
+    color: red;
+    font-weight: bold;
+}
+
+/* Animación para resaltar el precio */
+.price-animation {
+    animation: pulse 1.5s infinite;
+}
+
+
+@keyframes pulse {
+    0%, 100%{
+        transform:scale(1);
+        opacity:1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity:0.5;
+    }
+}
+
+#popupProductPrice2 {
+    font-size: 30px !important;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.popup-logo {
+    display: none;
+    margin: 20px auto 0; /* Centra la imagen con un margen superior */
+    width: 20px !important;
+    
+}
+
+/* Clase para hacer visible el popup */
+.visible {
+    display: flex; /* Mantener flexbox para centrar el contenido */
+}
+
+/* Efecto de difuminado cuando el popup está activo */
+.blurred {
+    filter: blur(5px);  /* Aplica un difuminado de 5px */
+    pointer-events: none;  /* Desactiva la interacción con los elementos de fondo */
+}
+
+
+/* Estilos para el contenedor de la cámara */
+.scanner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 10000;
+    display: flex;
+    justify-content: normal;
+    align-items: normal;
+}
+
+/* Opcional: Estilos para ocultar el escáner */
+.scanner.hidden {
+    display: none;
+}
+
+/* Estilos para el video de QuaggaJS */
+.scanner video {
+    width: auto;
+    height: auto;
+    object-fit: cover; /* Ajusta el video para cubrir el contenedor */
+}
+
+/* Estilos para el botón de cierre */
+.close-button {
+    position: fixed; /* Posicionamiento fijo para mantenerlo en la esquina */
+    top: 20px; /* Separación desde la parte superior */
+    right: 20px; /* Separación desde la parte derecha */
+    padding: 10px 20px;
+    background-color: #FF0000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 10001; /* Asegura que esté por encima del contenido del popup */
+}
+
+.close-button:hover {
+    background-color: #CC0000; /* Color más oscuro al pasar el cursor */
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 600px) {
+    .close-button {
+        top: 10px;
+        right: 10px;
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .scanner {
+        height: 100%;
+    }
+
+    .popup-content {
+        width: 95%; /* Ajustar el ancho para pantallas pequeñas */
+        max-width: none; /* Eliminar el límite de ancho */
+        padding: 10px; /* Reducir el padding */
+    }
+
+    #popupProductPrice {
+        font-size: 20px; /* Ajustar tamaño de fuente para pantallas pequeñas */
+    }
+
+#LogoAbajo {
+    width: 200px;
+}    
+}

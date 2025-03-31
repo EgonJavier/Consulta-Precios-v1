@@ -1,0 +1,120 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Splash screen logic
+    const splash = document.getElementById('splash');
+    const appContainer = document.getElementById('app');
+
+    // Mostrar el splash durante 2 segundos y luego iniciar la app
+    setTimeout(() => {
+        splash.classList.add('hidden');  // Oculta el splash
+        appContainer.classList.remove('hidden');  // Muestra la app
+    }, 2000);
+
+    // El resto de tu lógica (escáner, búsqueda, popup) permanece igual...
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const products = {
+        "1": { name: "Arroz tucapel 900 gr", price: "$1270" },
+        "2": { name: "Azucar de reyes 900 gr", price: "$1.080" },
+        "3": { name: "Harine Cien S/polvos 1kg", price: "$990" },
+        "4": { name: "Leche colun entera 1L", price: "$1.280" },
+        "7800028005536": { name: "Nastizol", price: "$1.280" }
+    };
+
+    // Función para buscar el producto por código
+    function lookupProduct(code) {
+        return products[code] || null;
+    }
+
+    // Función para mostrar los detalles del producto en el popup
+    function showProductPopup(product) {
+        const popup = document.getElementById('productPopup');
+        const popupName = document.getElementById('popupProductName');
+        const popupPrice = document.getElementById('popupProductPrice');
+        const container = document.querySelector('.container');
+
+        if (product) {
+            popupName.textContent = product.name;
+            popupPrice.textContent = product.price;
+        } else {
+            popupName.textContent = "Producto"+" no"+" encontrado";
+            popupPrice.textContent = " " ;
+            
+        }
+
+        // Mostrar el popup y difuminar el fondo
+        popup.classList.remove('hidden');
+        popup.classList.add('visible');
+        container.classList.add('blurred');
+
+        // Ocultar el popup y quitar el difuminado después de 10 segundos
+        setTimeout(() => {
+            popup.classList.remove('visible');
+            popup.classList.add('hidden');
+            container.classList.remove('blurred');
+        }, 10000);
+    }
+
+    // Ocultar el popup al hacer clic en cualquier parte del popup
+    document.getElementById('productPopup').addEventListener('click', () => {
+        const popup = document.getElementById('productPopup');
+        const container = document.querySelector('.container');
+
+        popup.classList.remove('visible');
+        popup.classList.add('hidden');
+        container.classList.remove('blurred');
+    });
+
+    // Manejo del botón de búsqueda manual
+    document.getElementById('lookupButton').addEventListener('click', () => {
+        const barcode = document.getElementById('barcodeInput').value;
+        const product = lookupProduct(barcode);
+
+        showProductPopup(product);    // Mostrar solo el popup
+    });
+
+    // Función para iniciar QuaggaJS y comenzar el escaneo
+    function startScanner() {
+        Quagga.init({
+            inputStream: {
+                type: "LiveStream",
+                target: document.querySelector('#scanner'),
+                constraints: {
+                    width: 640,
+                    height: 480,
+                    facingMode: "environment"
+                },
+            },
+            decoder: {
+                readers: ["ean_reader", "code_128_reader", "upc_reader", "code_39_reader"]
+            }
+        }, function (err) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log("Escáner iniciado");
+            Quagga.start();
+        });
+
+        // Detección del código de barras
+        Quagga.onDetected((result) => {
+            if (result.codeResult && result.codeResult.code) {
+                const barcode = result.codeResult.code;
+                console.log("Código detectado:", barcode);
+
+                // Buscar producto y mostrar en el popup
+                const product = lookupProduct(barcode);
+                showProductPopup(product);
+
+                // Detener el escáner después de una detección exitosa
+                Quagga.stop();
+            }
+        });
+    }
+
+    // Iniciar el escáner al hacer clic en el botón "Usar Cámara"
+    document.getElementById('startScanner').addEventListener('click', () => {
+        startScanner();
+    });
+});
